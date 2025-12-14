@@ -11,6 +11,20 @@ What it does:
 
 ---
 
+## EC2 metadata
+
+The script uses the EC2 Instance Metadata Service (IMDSv2) at `169.254.169.254`
+to automatically detect runtime information:
+
+- AWS region
+- instance identity
+- IAM role credentials (via STS)
+
+This avoids hardcoding region or credentials and allows the script
+to run on any EC2 instance with the required IAM permissions.
+
+---
+
 ## How to run
 
 ```bash
@@ -18,7 +32,16 @@ chmod +x sync_sg.sh
 ./sync_sg.sh <your_home_ip>
 ```
 Example:
-./sync_sg.sh 91.185.26.179
+
+I retrieved my current public IP by querying an external service (api.ipify.org) that returns the source IP of the request.
+
+```bash
+# on your pc/laptop
+curl -s https://api.ipify.org
+```
+```bash
+./sync_sg.sh 12.123.12.123
+```
 
 ## Tests
 1. Access via Cloudflare
@@ -28,6 +51,6 @@ curl -I http://2bcloud.io
 
 2. Direct access to origin
 ```bash
-
+# on your pc/laptop
 curl -I http://1.2.3.4 -H "Host: 2bcloud.io"  # public ip of your machine
 ```
