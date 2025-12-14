@@ -43,6 +43,8 @@ curl -s https://api.ipify.org
 ./sync_sg.sh 12.123.12.123
 ```
 
+After the script runs, a `security-group.yaml` file will appear in the same directory with the applied HTTP rules.
+
 ## Tests
 1. Access via Cloudflare
 ```bash
